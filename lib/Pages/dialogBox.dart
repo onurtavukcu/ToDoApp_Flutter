@@ -6,11 +6,12 @@ class DialogBox extends StatelessWidget {
   VoidCallback onSave;
   VoidCallback onCancel;
 
-  DialogBox(
-      {super.key,
-      required this.controller,
-      required this.onSave,
-      required this.onCancel});
+  DialogBox({
+    super.key,
+    required this.controller,
+    required this.onSave,
+    required this.onCancel,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -29,9 +30,15 @@ class DialogBox extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: [
-                  MyButton(text: "Save", onPressed: onSave),
+                  MyButton(
+                    text: "Save",
+                    onPressed: onSave,
+                  ),
                   const SizedBox(width: 8),
-                  MyButton(text: "Cancel", onPressed: onCancel)
+                  MyButton(
+                    text: "Cancel",
+                    onPressed: onCancel,
+                  )
                 ],
               )
             ],

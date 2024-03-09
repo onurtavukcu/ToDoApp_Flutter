@@ -4,16 +4,16 @@ import 'package:flutter_application_1/Pages/dialogBox.dart';
 import 'package:flutter_application_1/data/database.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
-class Homapage extends StatefulWidget {
-  Homapage() {
+class Homepage extends StatefulWidget {
+  Homepage() {
     super.key;
   }
 
   @override
-  State<Homapage> createState() => _HomaPageState();
+  State<Homepage> createState() => _HomePageState();
 }
 
-class _HomaPageState extends State<Homapage> {
+class _HomePageState extends State<Homepage> {
   final _mybox = Hive.box('mybox');
 
   final _controller = TextEditingController();
@@ -31,15 +31,6 @@ class _HomaPageState extends State<Homapage> {
     super.initState();
   }
 
-  //checkbox tapped
-
-  void checkBoxChanged(bool? value, int index) {
-    setState(() {
-      db.toDoList[index][1] = !db.toDoList[index][1];
-    });
-    db.updateDatabase();
-  }
-
   void saveNewTask() {
     setState(() {
       db.toDoList.add([_controller.text, false]);
@@ -50,16 +41,22 @@ class _HomaPageState extends State<Homapage> {
   }
 
   void createNewTask() {
+    // debugPrint('data: $isActive');
     showDialog(
         context: context,
         builder: (context) {
           return DialogBox(
             controller: _controller,
             onSave: saveNewTask,
-            onCancel: () => Navigator.of(context).pop(),
+            onCancel: cancelButton,
           );
         });
     db.updateDatabase();
+  }
+
+  void cancelButton() {
+    Navigator.of(context).pop();
+    _controller.text = "";
   }
 
   void deleteTask(int index) {
@@ -74,12 +71,11 @@ class _HomaPageState extends State<Homapage> {
     return Scaffold(
         backgroundColor: Colors.blue[200],
         appBar: AppBar(
-          title: Text("To Do List"),
-          elevation: 0,
+          title: const Text("Dont Forget"),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: createNewTask,
-          child: Icon(Icons.add),
+          child: const Icon(Icons.add),
         ),
         body: ListView.builder(
           itemCount: db.toDoList.length,
@@ -87,26 +83,9 @@ class _HomaPageState extends State<Homapage> {
             return ToDoTile(
               taskName: db.toDoList[index][0],
               taskCompleted: db.toDoList[index][1],
-              onChanged: (value) => checkBoxChanged(value, index),
               deleteFunction: (context) => deleteTask(index),
             );
           },
         ));
   }
 }
-
-
-// body: ListView(  
-//         children: [
-//           ToDoTile(
-//             taskName: "Make Tutorials",
-//             taskCompleted: true,
-//             onChanged: (p0) {},
-//           ),
-//           ToDoTile(
-//             taskName: "Sharpen Knifes",
-//             taskCompleted: false,
-//             onChanged: (p0) {},
-//           ),
-//         ],
-//       ),
