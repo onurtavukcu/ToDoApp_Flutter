@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 class MyButton extends StatelessWidget {
   final String text;
@@ -13,8 +14,9 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialButton(
-        onPressed: onPressed,
-        color: Theme.of(context).primaryColor,
-        child: Text(text));
+      onPressed: onPressed,
+      color: Colors.white,
+      child: Text(text),
+    );
   }
 }

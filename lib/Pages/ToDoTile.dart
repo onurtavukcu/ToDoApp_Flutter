@@ -15,7 +15,7 @@ class ToDoTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 25, right: 25, top: 25),
+      padding: const EdgeInsets.only(left: 15, right: 15, top: 8, bottom: 5),
       child: Slidable(
         endActionPane: ActionPane(
           motion: StretchMotion(),
@@ -29,18 +29,15 @@ class ToDoTile extends StatelessWidget {
           ],
         ),
         child: Container(
-          padding: EdgeInsets.all(24),
+          padding: EdgeInsets.only(left: 25, right: 10, top: 5, bottom: 5),
           decoration: BoxDecoration(
-            color: Colors.blue,
+            color: Colors.black,
             borderRadius: BorderRadius.circular(20),
           ),
+          height: 40,
           child: Row(
             children: [
-              Text(taskName,
-                  style: TextStyle(
-                      decoration: taskCompleted
-                          ? TextDecoration.lineThrough
-                          : TextDecoration.none)),
+              Text(taskName, style: TextStyle(color: Colors.white)),
             ],
           ),
         ),

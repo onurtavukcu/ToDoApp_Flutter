@@ -1,9 +1,16 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
 class ToDoDatabase {
-  List toDoList = [];
+  String boxName;
+  String listName;
+  late Box<dynamic> _myBox;
 
-  final _myBox = Hive.box('mybox');
+  ToDoDatabase(this.boxName, this.listName) {
+    boxName;
+    listName;
+    _myBox = Hive.box(boxName);
+  }
+  List toDoList = [];
 
   void crateInitialData() {
     List toDoList = [
@@ -13,10 +20,10 @@ class ToDoDatabase {
   }
 
   void loadData() {
-    toDoList = _myBox.get("TODOLIST");
+    toDoList = _myBox.get(listName) ?? [];
   }
 
   void updateDatabase() {
-    _myBox.put("TODOLIST", toDoList);
+    _myBox.put(boxName, listName);
   }
 }
